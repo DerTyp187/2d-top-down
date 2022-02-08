@@ -28,6 +28,8 @@ https://docs.gitlab.com/ee/ssh/
 
 ### Commit and Push
 Add all files to commit and create Commit
+`git add .`
+
 `git commit -a -m "COMMENT TO DESCRIBE THE INTENTION OF THE COMMIT"`
 
 `git push origin <branch>`
