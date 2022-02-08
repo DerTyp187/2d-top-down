@@ -20,6 +20,10 @@ Open Console in this folder.
 `cd 2d-top-down`
 
 ### Add Remote
+https://docs.gitlab.com/ee/ssh/
+
+`git init`
+
 `git remote add origin git@tealfire.de:gamedev/2d-top-down.git`
 
 ### Commit and Push
