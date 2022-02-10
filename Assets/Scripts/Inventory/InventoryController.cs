@@ -1,0 +1,33 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class InventoryController : MonoBehaviour
+{
+    [SerializeField] Item item1;// not needed
+    [SerializeField] Item item2;// not needed
+    public Inventory inventory;
+    [SerializeField] UI_Inventory uiInventory;
+    private void Awake()
+    {
+        inventory = transform.GetComponent<Inventory>();
+        inventory.createEmptyInventory(5);
+        Debug.Log(inventory.addItemAt(0, item1, 8));
+        Debug.Log(inventory.addItemAt(0, item1, 1));
+        Debug.Log(inventory.addItemAt(3, item2, 15));
+        Debug.Log(inventory.addItemAt(0, item2, 15));
+        Debug.Log(inventory.getInventory[0].Count);
+
+        uiInventory.setInventory(inventory);
+    }
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+}
