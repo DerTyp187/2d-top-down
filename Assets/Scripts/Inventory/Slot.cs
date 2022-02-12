@@ -15,21 +15,10 @@ public class Slot
         count = 0;
 
     }
-    public bool removeItem() 
+    public bool removeItem(int count = 1) 
     {
-        if (count > 0)
-        {
-            count--;
-            if (count == 0) 
-            {
-                item = null;
-            }
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        this.count -= count;
+        return true;
     }
     public bool addItem(int count = 1)
     {
