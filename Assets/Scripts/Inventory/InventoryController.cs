@@ -11,17 +11,19 @@ public class InventoryController : MonoBehaviour
     private void Awake()
     {
         inventory = transform.GetComponent<Inventory>();
-        inventory.createEmptyInventory(5,10);
+        inventory.createEmptyInventory(8,10);
         
         inventory.addItemAt(0, item1, 8);
         inventory.addItemAt(0, item1, 1);
         inventory.addItemAt(3, item2, 15);
+        inventory.addItemAt(4, item1, 3);
+
         /*
         Debug.Log(inventory.addItemAt(0, item2, 15));
         Debug.Log(inventory.getInventory[0].Count);
         Debug.Log(inventory.removeItemAt(0, 10));
         Debug.Log(inventory.getInventory[0].Count);
-        */
+        */ 
         uiInventory.setInventory(inventory);
     }
     void Start()

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de55e2e3081d4ee4a9d0737e718a5b3b, type: 3}
+  m_Name: Wood
+  m_EditorClassIdentifier: 
+  name: Wood
+  id: 2
+  isStackable: 1
+  sprite: {fileID: 21300000, guid: 30728ae26107dfe438d180ab175fdaca, type: 3}

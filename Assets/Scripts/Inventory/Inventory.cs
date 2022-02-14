@@ -22,6 +22,8 @@ public class Inventory : MonoBehaviour
     /// </summary>
 
 
+    public delegate void OnItemChanged();
+    public OnItemChanged onItemChangedCallback; // 
 
     List<Slot> inventory = new List<Slot>();
 
@@ -36,7 +38,8 @@ public class Inventory : MonoBehaviour
         {
             inventory.Add(new Slot(maxSpaceOfSlots));
         }
-        
+        if (onItemChangedCallback != null)
+            onItemChangedCallback.Invoke();
     }
     public void addInventorySlots(int numberOfSlots, int maxSpaceOfSlots = 10)
     {
@@ -46,7 +49,8 @@ public class Inventory : MonoBehaviour
         {
             inventory.Add(new Slot(maxSpaceOfSlots));
         }
-
+        if (onItemChangedCallback != null)
+            onItemChangedCallback.Invoke();
     }
     public int addItemAt(int index, Item itemType,int count) 
     {
@@ -65,16 +69,23 @@ public class Inventory : MonoBehaviour
 
             if (inventory[index].MaxItems == inventory[index].Count) 
             {
+
+                if (onItemChangedCallback != null)
+                    onItemChangedCallback.Invoke();
                 return count; // Can't add any items if the slot is full.
             }
             else if (inventory[index].MaxItems >= inventory[index].Count + count)
             {
                 inventory[index].addItem(count); // Adds all items if there is enought space.
+                if(onItemChangedCallback != null)
+                    onItemChangedCallback.Invoke();
                 return 0;
             } else 
             {
                 int rest = count - inventory[index].MaxItems - inventory[index].Count;
                 inventory[index].addItem(inventory[index].MaxItems - inventory[index].Count); // Adds the number of items until the slot is full and returns the number of items that didn't fit.
+                if (onItemChangedCallback != null)
+                    onItemChangedCallback.Invoke();
                 return rest;
             }
         }

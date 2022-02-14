@@ -12,26 +12,37 @@ public class UI_Inventory : MonoBehaviour
     {
         //itemSlotTemplate = inventoryContainer.Find("containerTemplate");
     }
+    public void buttonEvent(int index) 
+    {
+        Debug.Log("yeet");
+    }
     public void setInventory(Inventory inventory) 
     {
         playerInventory = inventory;
+        inventory.onItemChangedCallback += updateInventory;
         updateInventory();
     }
     private void updateInventory()
     {
+        
+        int rows = 2;
+        int columns = 4;
+        float slotSize = 95;
         int x = 0;
         int y = 0;
-        float slotSize = 100;
+        int index = 0;
+        //inventoryContainer.GetComponent<RectTransform>().
         foreach (Slot slot in playerInventory.getInventory) 
         {
+
             RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, inventoryContainer).GetComponent<RectTransform>();
-            itemSlotRectTransform.anchoredPosition = new Vector2(x* slotSize,y * slotSize);
+            itemSlotRectTransform.anchoredPosition = new Vector2(x* slotSize + slotSize * 0.5f,y * slotSize - slotSize * 0.5f );
             itemSlotRectTransform.gameObject.SetActive(true);
-            
+            itemSlotRectTransform.gameObject.name = "ItemSlot" + index;
 
             if (slot.ItemType != null) 
             {
-                Transform Item = itemSlotRectTransform.Find("ItemTemplate");
+                Transform Item = itemSlotRectTransform.GetChild(0).Find("Icon");
                 Item.gameObject.SetActive(true);
                 Item.GetComponent<Image>().sprite = slot.ItemType.sprite;
             }
@@ -41,6 +52,7 @@ public class UI_Inventory : MonoBehaviour
                 x = 0;
                 y--;
             }
+            index++;
         }
     }
 }
