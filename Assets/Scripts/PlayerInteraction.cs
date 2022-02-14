@@ -19,8 +19,8 @@ public class PlayerInteraction : MonoBehaviour
             {
                 // Debug.Log("Target Position: " + hit.collider.gameObject.transform.position);
                 HandleInteraction(interactable);
-                interactionText.text = interactable.GetDescription();
                 successfulHit = true;
+                HandleInteractionText(interactable);
             }            
         }
 
@@ -30,12 +30,12 @@ public class PlayerInteraction : MonoBehaviour
         }
 
     }
-
-    void HandleInteractionText() // interaction text has to follow mouse cursor
+    void HandleInteractionText(Interactable interactable)
     {
-        
-    }
+        interactionText.text = interactable.GetDescription();
+        interactionText.transform.position = new Vector3(Input.mousePosition.x + interactionText.rectTransform.sizeDelta.x / 2 + 20, Input.mousePosition.y - 5, Input.mousePosition.z);
 
+    }
     void HandleInteraction(Interactable interactable)
     {
         switch (interactable.interactionType)

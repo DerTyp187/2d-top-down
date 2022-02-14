@@ -7,8 +7,10 @@ public class TreeInteraction : Interactable
     public override string GetDescription() => "Baum muss schreie";
     public override void Interact()
     {
-        if(isInRange())
+        if (isInRange())
             Debug.Log("AaaaaaaaaaAaAAaAaAAaAaAaaaaaaaaaaaaaaaaaahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+        else
+            Debug.Log("Tree is not in range");
     }
 }
 
