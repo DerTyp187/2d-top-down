@@ -30,12 +30,17 @@ public class PlayerInteraction : MonoBehaviour
         }
 
     }
+    
     void HandleInteractionText(Interactable interactable)
     {
         interactionText.text = interactable.GetDescription();
         interactionText.transform.position = new Vector3(Input.mousePosition.x + interactionText.rectTransform.sizeDelta.x / 2 + 20, Input.mousePosition.y - 5, Input.mousePosition.z);
-
     }
+
+    /// <summary>
+    /// <c>HandleInteraction</c> <strong>handles the player interaction based on the Interactable.InteractionType.</strong>
+    /// </summary>
+    /// <param name="interactable"></param>
     void HandleInteraction(Interactable interactable)
     {
         switch (interactable.interactionType)
@@ -51,7 +56,7 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     interactable.IncreaseHoldTime();
                     
-                    if(interactable.GetHoldTime() > 1f)
+                    if(interactable.GetHoldTime() > interactable.GetHoldDuration())
                     {
                         interactable.Interact();
                         interactable.ResetHoldTime();
@@ -60,6 +65,19 @@ public class PlayerInteraction : MonoBehaviour
                 else
                 {
                     interactable.ResetHoldTime();
+                }
+                break;
+            case Interactable.InteractionType.Harvest:
+                Harvestable harvestable = interactable.GetComponent<Harvestable>();
+                Debug.Log(harvestable.GetHarvestTimeLeft());
+                if (Input.GetButton("Interact"))
+                {
+                    harvestable.IncreaseHarvestTime();
+
+                    if (harvestable.GetHarvestTime() >= harvestable.GetHarvestDuration())
+                    {
+                        harvestable.Interact();
+                    }
                 }
                 break;
             default:
