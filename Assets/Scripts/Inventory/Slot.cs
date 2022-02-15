@@ -14,6 +14,7 @@ public class Slot
     /// [Methods]
     /// void addItem(int count = 1)
     /// void removeItem(int count = 1) 
+    /// void clear()
     /// </summary>
 
     Item item;
@@ -36,5 +37,18 @@ public class Slot
     {
         // removes any number of items from the slot will also go negative 
         this.count -= count;
-    }    
+    }
+    public void clear()
+    {
+        item = null;
+        count = 0;
+    }
+    public Slot copy() 
+    {
+        Slot slot = new Slot(maxItems);
+        slot.count = count;
+        slot.ItemType = ItemType;
+
+        return slot;
+    }
 }
