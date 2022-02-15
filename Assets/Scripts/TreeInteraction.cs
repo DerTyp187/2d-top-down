@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class TreeInteraction : Interactable
 {
-    public override string GetDescription() => "Baum muss schreien";
+    public override string GetDescription()
+    {
+        if (isInRange())
+            return "Baum muss schreien";
+        else  
+            return "Tree is not in range";
+    }
     public override void Interact()
     {
         if (isInRange())
