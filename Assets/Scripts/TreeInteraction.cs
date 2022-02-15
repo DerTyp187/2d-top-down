@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TreeInteraction : Harvestable
@@ -8,7 +6,7 @@ public class TreeInteraction : Harvestable
     public override string GetDescription()
     {
         if (isInRange())
-            return "Baum muss schreien";
+            return "Baum muss weg";
         else  
             return "Tree is not in range";
     }

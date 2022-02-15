@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
+using UnityEngine.UI;
 public class PlayerInteraction : MonoBehaviour
 {
-    public TMPro.TextMeshProUGUI interactionText;
+    [SerializeField]
+    TextMeshProUGUI interactionText;
+
+    [SerializeField]
+    Image interactionProgressImg;
 
     void Update()
     {
@@ -21,14 +26,21 @@ public class PlayerInteraction : MonoBehaviour
                 HandleInteraction(interactable);
                 successfulHit = true;
                 HandleInteractionText(interactable);
+                HandleInteractionProgress(interactable);
             }            
         }
 
         if (!successfulHit)
         {
             interactionText.text = "";
+            interactionProgressImg.fillAmount = 0;
         }
 
+    }
+
+    void HandleInteractionProgress(Interactable interactable)
+    {
+        interactionProgressImg.fillAmount = interactable.GetHoldTime() / interactable.GetHoldDuration();
     }
     
     void HandleInteractionText(Interactable interactable)
@@ -46,13 +58,13 @@ public class PlayerInteraction : MonoBehaviour
         switch (interactable.interactionType)
         {
             case Interactable.InteractionType.Click:
-                if (Input.GetButtonDown("Interact"))
+                if (Input.GetButtonDown("Interact") && interactable.isInRange())
                 {
                     interactable.Interact();
                 }
                 break;
             case Interactable.InteractionType.Hold:
-                if (Input.GetButton("Interact"))
+                if (Input.GetButton("Interact") && interactable.isInRange())
                 {
                     interactable.IncreaseHoldTime();
                     
@@ -69,8 +81,8 @@ public class PlayerInteraction : MonoBehaviour
                 break;
             case Interactable.InteractionType.Harvest:
                 Harvestable harvestable = interactable.GetComponent<Harvestable>();
-                Debug.Log(harvestable.GetHarvestTimeLeft());
-                if (Input.GetButton("Interact"))
+
+                if (Input.GetButton("Interact") && interactable.isInRange())
                 {
                     harvestable.IncreaseHarvestTime();
 
