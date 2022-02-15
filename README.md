@@ -11,4 +11,4 @@ It is supposed to have a focus on the survival aspect, which includes farming, g
 After the extensive survival aspect, the player will be able to move into a city build, where the player can interact with NPCs, build their city, automate production, and be involved in cross-city interactions (war, trade, alliances).
 
 # Current Status
-The main focus right now is on the survival aspect and the CityBuild is a plan after the survival aspect is extensive and completely finished.
+The main focus right now is on the survival aspect and the CityBuild is planned after the survival aspect is finished.
