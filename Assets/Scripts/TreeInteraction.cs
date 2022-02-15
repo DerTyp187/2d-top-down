@@ -1,21 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class TreeInteraction : Interactable
+public class TreeInteraction : Harvestable
 {
+    
     public override string GetDescription()
     {
         if (isInRange())
-            return "Baum muss schreien";
+            return "Baum muss weg";
         else  
             return "Tree is not in range";
     }
     public override void Interact()
     {
-        if (isInRange())
-            Debug.Log("AaaaaaaaaaAaAAaAaAAaAaAaaaaaaaaaaaaaaaaaahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
-        else
-            Debug.Log("Tree is not in range");
+        Debug.Log("Harvest BAUM");
     }
 }
