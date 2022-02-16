@@ -31,13 +31,22 @@ public abstract class Interactable : MonoBehaviour
 
     // Used to measure the distance between the player and the object
     Transform playerTransform;
-    Transform interactableTransform;
 
     [Tooltip("The range in which the player can interact with an object")]
     [Range(1f, 50f)]
     [SerializeField]
     float radius = 3f;
 
+    [SerializeField]
+    Transform centerPoint;
+
+    void Awake()
+    {
+        if(centerPoint == null)
+        {
+            centerPoint = gameObject.transform;
+        }
+    }
     #region GETTER
     /// <summary>
     /// <c>GetDescription</c> gets the description of an interactable object.
@@ -110,8 +119,8 @@ public abstract class Interactable : MonoBehaviour
     public bool isInRange()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").gameObject.transform; // Maybe singleton later?
-        interactableTransform = gameObject.transform;
-        float distance = Vector2.Distance(interactableTransform.position, playerTransform.position);
+
+        float distance = Vector2.Distance(centerPoint.position, playerTransform.position);
 
         if(distance <= radius)
         {
@@ -124,12 +133,19 @@ public abstract class Interactable : MonoBehaviour
 
     }
 
+    
 
     // Show interactable range in editor but NOT IN-GAME
     private void OnDrawGizmosSelected()
     {
+        // Same as in "Awake()", cause the object does not get "awakend" in inspector
+        if (centerPoint == null)
+        {
+            centerPoint = gameObject.transform;
+        }
+
         // Gizmos are only visible in the scene view -> NOT visible IN-GAME (DEBUG Reasons)
         Gizmos.color = Color.magenta;
-        Gizmos.DrawWireSphere(transform.position, radius);
+        Gizmos.DrawWireSphere(centerPoint.position, radius);
     }
 }
