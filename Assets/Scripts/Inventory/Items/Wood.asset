@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fae7bba50a98204883e78d8d6c96fc2, type: 3}
   m_Name: Wood
   m_EditorClassIdentifier: 
-  name: 
-  id: 0
-  isStackable: 0
-  sprite: {fileID: 0}
+  name: wood
+  id: 2
+  isStackable: 1
+  sprite: {fileID: 21300000, guid: 30728ae26107dfe438d180ab175fdaca, type: 3}
   isSelected: 0

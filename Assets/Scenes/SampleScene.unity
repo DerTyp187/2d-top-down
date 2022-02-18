@@ -4411,8 +4411,9 @@ MonoBehaviour:
   holdDuration: 1
   radius: 3
   centerPoint: {fileID: 1335747188}
-  harvestDuration: 3
+  harvestDuration: 1
   toolType: 0
+  drops: []
 --- !u!1 &1523942491
 GameObject:
   m_ObjectHideFlags: 0
