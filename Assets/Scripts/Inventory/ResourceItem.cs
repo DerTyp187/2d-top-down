@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName = "FoodItem", menuName = "Items/FoodItem", order = 2)]
+[CreateAssetMenu(fileName = "ResourceItem", menuName = "Items/ResourceItem", order = 2)]
 public class ResourceItem : Item
 {
     public override void OnSelect()

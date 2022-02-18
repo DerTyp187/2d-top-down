@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de55e2e3081d4ee4a9d0737e718a5b3b, type: 3}
+  m_Script: {fileID: 11500000, guid: 0fae7bba50a98204883e78d8d6c96fc2, type: 3}
   m_Name: Wood
   m_EditorClassIdentifier: 
-  name: Wood
-  id: 2
-  isStackable: 1
-  sprite: {fileID: 21300000, guid: 30728ae26107dfe438d180ab175fdaca, type: 3}
+  name: 
+  id: 0
+  isStackable: 0
+  sprite: {fileID: 0}
+  isSelected: 0

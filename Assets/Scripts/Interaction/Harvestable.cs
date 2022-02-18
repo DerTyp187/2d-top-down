@@ -9,7 +9,7 @@ public abstract class Harvestable : Interactable
     [Tooltip("The time for how long the object needs to be harvested.")]
     [Range(0.1f, 99.9f)]
     [SerializeField]
-    float harvestDuration = 3f;
+    float harvestDuration = 1f;
 
     public ToolType toolType;
 

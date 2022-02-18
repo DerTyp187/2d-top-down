@@ -9,6 +9,7 @@ public abstract class Item : ScriptableObject
     public int id;
     public bool isStackable;
     public Sprite sprite;
+    
     public bool isSelected;
 
     public abstract void OnSelect();
