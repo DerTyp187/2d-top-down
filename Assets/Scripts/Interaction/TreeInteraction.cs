@@ -2,7 +2,14 @@ using UnityEngine;
 
 public class TreeInteraction : Harvestable
 {
-    
+
+    private void Start()
+    {
+        toolType = ToolType.AXE;
+    }
+
+
+
     public override string GetDescription()
     {
         if (isInRange())

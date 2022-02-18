@@ -10,7 +10,9 @@ public abstract class Harvestable : Interactable
     [Range(0.1f, 99.9f)]
     [SerializeField]
     float harvestDuration = 3f;
-    
+
+    public ToolType toolType;
+
     float harvestTime = 0f;// time for how long the player already "harvested" the object
 
     /// <summary>

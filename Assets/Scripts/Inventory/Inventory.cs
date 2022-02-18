@@ -25,6 +25,7 @@ public class Inventory : MonoBehaviour
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback; // 
 
+    [SerializeField]
     List<Slot> inventory = new List<Slot>();
 
     public List<Slot> getInventory { get => inventory;}
@@ -33,7 +34,6 @@ public class Inventory : MonoBehaviour
         // Initializes the inventory with a specific number of slots and slotsize.
         // !!!Has to be called bevore adding any items!!!
         // Example createEmptyInventory(5, 10) : 5 Slots with space for 10 items each
-        inventory = new List<Slot>();
         for (int i = 0; i < numberOfSlots; i++)
         {
             inventory.Add(new Slot(maxSpaceOfSlots));
