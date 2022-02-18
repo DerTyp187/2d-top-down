@@ -11,6 +11,7 @@ public class TimeManager : MonoBehaviour
 
     DateTime dateTime = new DateTime(1, 1, 1, 0, 0, 0);
 
+    public DateTime GetDateTime() => dateTime;
     public string GetTime() => dateTime.ToString("hh:mm tt");
     public string GetDate() => dateTime.ToString("dd/mm/yyyy");
 
@@ -23,4 +24,6 @@ public class TimeManager : MonoBehaviour
     {
         dateTime = dateTime.AddMinutes(minutesPerInterval);
     }
+
+    // For Plant growth maybe add a List<GameObject/Script> where those plants can register themselves and every "TimeUp()" they get checked by the TimeManager
 }
