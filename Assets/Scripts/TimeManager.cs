@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TimeManager : MonoBehaviour
@@ -34,13 +35,10 @@ public class TimeManager : MonoBehaviour
     {
         dateTime = dateTime.AddMinutes(minutesPerInterval);
         CheckPartsOfDay();
-        Debug.Log(GetTime());
     }
 
     void CheckPartsOfDay()
     {
-        Debug.Log(dateTime.Hour);
-
         if (dateTime.Hour >= 22)
             partOfDay = PartOfDay.NIGHT;
         else if(dateTime.Hour < 6)
@@ -52,6 +50,4 @@ public class TimeManager : MonoBehaviour
         else if (dateTime.Hour >= 17 && dateTime.Hour < 22)
             partOfDay = PartOfDay.EVENING;
     }
-
-    // For Plant growth maybe add a List<GameObject/Script> where those plants can register themselves and every "TimeUp()" they get checked by the TimeManager
 }
