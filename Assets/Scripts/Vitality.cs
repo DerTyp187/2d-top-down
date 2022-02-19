@@ -4,26 +4,25 @@ using UnityEngine;
 
 public class Vitality : MonoBehaviour
 {   
-    TimeManager timeManager;
     Player player;
 
     [Header("Vitality")]
     [Range(0f, 1f)]
     [SerializeField]
-    float health = 1f;
+    public float health = 1f;
 
     [Range(0f, 1f)]
     [SerializeField]
-    float food = 1f;
+    public float food = 1f;
 
     [Range(0f, 1f)]
     [SerializeField]
-    float drink = 1f;
+    public float drink = 1f;
 
     [Header("Vitality Modifier Per Interval")]
     [Range(0f, 50f)]
     [SerializeField]
-    float healthModifier = 15f;
+    float healthModifier = 30f;
 
     [Range(0f, 5f)]
     [SerializeField]
@@ -35,7 +34,6 @@ public class Vitality : MonoBehaviour
 
     private void Start()
     {
-        timeManager = GameObject.Find("GameManager").GetComponent<TimeManager>();
         TimeManager.OnTimeInterval += VitalityInterval;
         player = gameObject.GetComponent<Player>();
     }
