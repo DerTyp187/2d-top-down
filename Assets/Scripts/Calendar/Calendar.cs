@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Calendar : MonoBehaviour
 {
@@ -11,6 +12,13 @@ public class Calendar : MonoBehaviour
     [SerializeField]
     Color currentDayColor;
     Color originDayColor;
+
+    [SerializeField]
+    TextMeshProUGUI monthText;
+    [SerializeField]
+    TextMeshProUGUI yearText;
+    
+
     private void Start()
     {
         daysTransform = transform.Find("Days");
@@ -31,6 +39,9 @@ public class Calendar : MonoBehaviour
         int counter;
 
         int daysInMonth = DateTime.DaysInMonth(dateTime.Year, dateTime.Month);
+
+        monthText.text = dateTime.ToString("MMMM");
+        yearText.text = dateTime.ToString("yyyy");
 
         counter = 1;
         while (counter <= 31)
