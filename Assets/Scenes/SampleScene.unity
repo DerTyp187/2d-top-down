@@ -513,7 +513,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: interaction text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4311e961a11edf545ba020d711a5b017, type: 2}
   m_sharedMaterial: {fileID: -5352834521635484852, guid: 4311e961a11edf545ba020d711a5b017, type: 2}
@@ -810,7 +810,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partOfDay: 0
   intervalTime: 1
-  minutesPerInterval: 1
 --- !u!4 &273326178
 Transform:
   m_ObjectHideFlags: 0
@@ -911,13 +910,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 310196954}
-  - component: {fileID: 310196953}
   - component: {fileID: 310196952}
-  - component: {fileID: 310196951}
-  - component: {fileID: 310196955}
-  - component: {fileID: 310196956}
   - component: {fileID: 310196957}
   - component: {fileID: 310196958}
+  - component: {fileID: 310196959}
+  - component: {fileID: 310196953}
+  - component: {fileID: 310196956}
+  - component: {fileID: 310196951}
+  - component: {fileID: 310196955}
+  - component: {fileID: 310196960}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1090,6 +1091,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionText: {fileID: 87507994}
   interactionProgressImg: {fileID: 138750307}
+--- !u!114 &310196959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310196950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 259b4dba2ac00aa4983a6562c5f4eed5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1
+  food: 1
+  drink: 1
+  healthModifier: 15
+  foodModifier: 0.4
+  drinkModifier: 0.6
+--- !u!114 &310196960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310196950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ee4c18f008d122488cbb74c779ef5c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &360525550
 GameObject:
   m_ObjectHideFlags: 0

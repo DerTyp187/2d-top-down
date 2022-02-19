@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
+    public static Action OnTimeInterval;
     public enum PartOfDay
     {
         MORNING,
@@ -17,24 +18,33 @@ public class TimeManager : MonoBehaviour
     [SerializeField]
     float intervalTime = 1.0f; // 1.0f -> 1 real second is 1 ingame minute
 
-    [SerializeField]
     int minutesPerInterval = 1;    
 
-    DateTime dateTime = new DateTime(1, 1, 1, 23, 0, 0);
+    DateTime dateTime = new DateTime(1, 1, 1, 0, 0, 0);
+    float timer;
 
     public DateTime GetDateTime() => dateTime;
     public string GetTime() => dateTime.ToString("hh:mm tt");
     public string GetDate() => dateTime.ToString("dd/mm/yyyy");
+    public float GetintervalTime() => intervalTime;
+    
 
     void Start()
     {
-        InvokeRepeating("TimeUp", intervalTime, intervalTime);    
+        timer = intervalTime;
     }
 
-    void TimeUp()
+    void Update()
     {
-        dateTime = dateTime.AddMinutes(minutesPerInterval);
-        CheckPartsOfDay();
+        timer -= Time.deltaTime;
+
+        if (timer <= 0)
+        {
+            dateTime = dateTime.AddMinutes(minutesPerInterval);
+            CheckPartsOfDay();
+            OnTimeInterval?.Invoke();
+            timer = intervalTime;
+        }
     }
 
     void CheckPartsOfDay()
