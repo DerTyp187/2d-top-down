@@ -12,7 +12,11 @@ TrueTypeFontImporter:
   - Pixeled
   fallbackFontReferences: []
   customCharacters: 
+<<<<<<< Updated upstream
   fontRenderingMode: 3
+=======
+  fontRenderingMode: 0
+>>>>>>> Stashed changes
   ascentCalculationMode: 1
   useLegacyBoundsCalculation: 0
   shouldRoundAdvanceValue: 1
