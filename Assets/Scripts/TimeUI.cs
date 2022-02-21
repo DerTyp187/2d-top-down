@@ -12,12 +12,13 @@ public class TimeUI : MonoBehaviour
     private void Start()
     {
         timeManager = GameObject.Find("GameManager").GetComponent<TimeManager>();
+        
     }
 
     private void Update()
     {
         DateTime dateTime = timeManager.GetDateTime();
         if (dateTimeText != null)
-            dateTimeText.text = dateTime.ToString("hh:mm tt / dd.MM.yyyy");
+            dateTimeText.text = dateTime.ToString("hh:mm tt / dd.MM.yyyy", timeManager.cultureInfo);
     }
 }

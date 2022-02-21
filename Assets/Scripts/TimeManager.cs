@@ -1,10 +1,13 @@
 using System;
+using System.Globalization;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
     public static Action OnTimeInterval;
+    public static TimeManager instance;
+
     public enum PartOfDay
     {
         MORNING,
@@ -18,14 +21,16 @@ public class TimeManager : MonoBehaviour
     [SerializeField]
     float intervalTime = 1.0f; // 1.0f -> 1 real second is 1 ingame minute
 
-    int minutesPerInterval = 1;    
+    int minutesPerInterval = 1;
 
+    public CultureInfo cultureInfo = new CultureInfo("en-us");
     DateTime dateTime = new DateTime(1, 1, 1, 0, 0, 0);
     float timer;
 
     public DateTime GetDateTime() => dateTime;
-    public string GetTime() => dateTime.ToString("hh:mm tt");
-    public string GetDate() => dateTime.ToString("dd/mm/yyyy");
+    
+    public string GetTime() => dateTime.ToString("hh:mm tt", cultureInfo);
+    public string GetDate() => dateTime.ToString("dd/mm/yyyy", cultureInfo);
     public float GetintervalTime() => intervalTime;
     
 
