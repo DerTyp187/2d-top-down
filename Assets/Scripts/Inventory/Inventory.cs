@@ -23,31 +23,23 @@ public class Inventory : MonoBehaviour
 
 
     public delegate void OnItemChanged();
-    public OnItemChanged onItemChangedCallback; // 
+    public OnItemChanged onItemChangedCallback;
+
+    [SerializeField]
+    int numberOfSlots = 20;
 
     [SerializeField]
     List<Slot> inventory = new List<Slot>();
 
     public List<Slot> getInventory { get => inventory;}
-    public void createEmptyInventory(int numberOfSlots, int maxSpaceOfSlots = 10) 
-    {
-        // Initializes the inventory with a specific number of slots and slotsize.
-        // !!!Has to be called bevore adding any items!!!
-        // Example createEmptyInventory(5, 10) : 5 Slots with space for 10 items each
-        for (int i = 0; i < numberOfSlots; i++)
-        {
-            inventory.Add(new Slot(maxSpaceOfSlots));
-        }
-        if (onItemChangedCallback != null)
-            onItemChangedCallback.Invoke();
-    }
+    
     public void addInventorySlots(int numberOfSlots, int maxSpaceOfSlots = 10)
     {
         // Adds a specific number of slots and slotsize to the inventory.
         // Example addInventorySlots(5, 10) : Adds 5 Slots with space for 10 items each
         for (int i = 0; i < numberOfSlots; i++)
         {
-            inventory.Add(new Slot(maxSpaceOfSlots));
+            inventory.Add(new Slot());
         }
         if (onItemChangedCallback != null)
             onItemChangedCallback.Invoke();
@@ -142,4 +134,30 @@ public class Inventory : MonoBehaviour
             return false;
         }
     }
+
+    /*
+    public int addItem(Item itemType, int count = 1)
+    {
+        foreach (Slot slot in inventory)
+        {
+            if (slot.ItemType.Equals(itemType))
+            {
+                slot.
+            }
+        }
+    }*/
+
+
+    void Start()
+    {
+        // Init Inventory
+        for (int i = 0; i < numberOfSlots; i++)
+        {
+            inventory.Add(new Slot());
+        }
+        if (onItemChangedCallback != null)
+            onItemChangedCallback.Invoke();
+
+    }
+
 }

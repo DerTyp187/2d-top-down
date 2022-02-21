@@ -18,15 +18,12 @@ public class Slot
     /// </summary>
 
     Item item;
-    int maxItems = 1;
     int count = 0;
     public Item ItemType { get => item; set => item = value; }
     public int Count { get => count; set => count = value; }
-    public int MaxItems { get => maxItems; set => maxItems = value; }
-    public Slot(int maxItems = 1)
+    public Slot()
     {
         item = null;
-        this.maxItems = maxItems;
     }
     public void addItem(int count = 1)
     {
@@ -45,7 +42,7 @@ public class Slot
     }
     public Slot copy() 
     {
-        Slot slot = new Slot(maxItems);
+        Slot slot = new Slot();
         slot.count = count;
         slot.ItemType = ItemType;
 
