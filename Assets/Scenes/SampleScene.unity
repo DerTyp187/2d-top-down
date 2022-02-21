@@ -910,15 +910,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 310196954}
-  - component: {fileID: 310196952}
-  - component: {fileID: 310196957}
-  - component: {fileID: 310196958}
-  - component: {fileID: 310196959}
   - component: {fileID: 310196953}
   - component: {fileID: 310196956}
   - component: {fileID: 310196951}
-  - component: {fileID: 310196955}
+  - component: {fileID: 310196961}
+  - component: {fileID: 310196962}
   - component: {fileID: 310196960}
+  - component: {fileID: 310196959}
+  - component: {fileID: 310196958}
+  - component: {fileID: 310196957}
+  - component: {fileID: 310196963}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -947,19 +948,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &310196952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 310196950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5eabb8b018254b445a53ca18ab08171b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
 --- !u!212 &310196953
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1028,26 +1016,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &310196955
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 310196950}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 90bb3dd39fb871f45afc69781292e62c, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!70 &310196956
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1073,11 +1041,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 310196950}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 194170eed9e58d74584e7e11747aea0b, type: 3}
+  m_Script: {fileID: 11500000, guid: 259b4dba2ac00aa4983a6562c5f4eed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  calendar: {fileID: 1667673220}
+  health: 1
+  food: 1
+  drink: 1
+  healthModifier: 30
+  foodModifier: 0.4
+  drinkModifier: 0.6
 --- !u!114 &310196958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310196950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eabb8b018254b445a53ca18ab08171b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+--- !u!114 &310196959
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1091,7 +1077,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionText: {fileID: 87507994}
   interactionProgressImg: {fileID: 138750307}
---- !u!114 &310196959
+--- !u!114 &310196960
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1100,16 +1086,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 310196950}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 259b4dba2ac00aa4983a6562c5f4eed5, type: 3}
+  m_Script: {fileID: 11500000, guid: 194170eed9e58d74584e7e11747aea0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1
-  food: 1
-  drink: 1
-  healthModifier: 30
-  foodModifier: 0.4
-  drinkModifier: 0.6
---- !u!114 &310196960
+  calendar: {fileID: 1667673220}
+--- !u!114 &310196961
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1121,6 +1102,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee4c18f008d122488cbb74c779ef5c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &310196962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310196950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee2fcb6d299019740bbede78bbc6a1d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testItemType: {fileID: 11400000, guid: e04039a6cbed5e5439b605aeee90485f, type: 2}
+  numberOfSlots: 20
+  maxSpaceOfSlots: 60
+  inventory: []
+--- !u!95 &310196963
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310196950}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 90bb3dd39fb871f45afc69781292e62c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &360525550
 GameObject:
   m_ObjectHideFlags: 0

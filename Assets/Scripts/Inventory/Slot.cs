@@ -1,54 +1,47 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class Slot
 {
-    /// <summary>
-    /// Holds an itemType the number of items and the number of maxItems
-    /// this has no logic so everything has to be done from the outside
-    /// [Get/Set]
-    /// ItemType
-    /// Count
-    /// MaxItems
-    /// [Methods]
-    /// void addItem(int count = 1)
-    /// void removeItem(int count = 1) 
-    /// void clear()
-    /// </summary>
+    [SerializeField]
+    Item item = null;
 
-    Item item;
-    int maxItems = 1;
+    [SerializeField]
     int count = 0;
-    public Item ItemType { get => item; set => item = value; }
-    public int Count { get => count; set => count = value; }
-    public int MaxItems { get => maxItems; set => maxItems = value; }
-    public Slot(int maxItems = 1)
+
+    public Item GetItem() => item;
+
+    public int GetCount() => count;
+   
+    public void AddCount(int value) => count += value;
+
+    public void SetCount(int newCount)
     {
-        item = null;
-        this.maxItems = maxItems;
+        count = newCount;
+        if (count <= 0)
+            Clear();
     }
-    public void addItem(int count = 1)
+
+    public void RemoveCount(int value)
     {
-        // adds any number of items to the slot will also go over the max items
-        this.count += count;
+        count -= value; 
+        if (count <= 0)
+            Clear();
     }
-    public void removeItem(int count = 1) 
-    {
-        // removes any number of items from the slot will also go negative 
-        this.count -= count;
-    }
-    public void clear()
+    public void ResetCount() => count = 0;
+
+    public void Clear()
     {
         item = null;
         count = 0;
     }
-    public Slot copy() 
-    {
-        Slot slot = new Slot(maxItems);
-        slot.count = count;
-        slot.ItemType = ItemType;
 
-        return slot;
+    public void Set(Item _item, int _count = 1)
+    {
+        item = _item;
+        count = _count;
     }
 }

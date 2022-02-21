@@ -7,4 +7,9 @@ public class FoodItem : Item
     public int health;
     public int water;
     public int regeneration;
+
+    public override void OnSelect()
+    {
+        throw new System.NotImplementedException();
+    }
 }

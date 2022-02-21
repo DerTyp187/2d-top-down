@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,114 +22,76 @@ public class Inventory : MonoBehaviour
     /// -------------------------------------------------------------------------------///
     /// </summary>
 
+    public Item testItemType;
 
-    public delegate void OnItemChanged();
-    public OnItemChanged onItemChangedCallback; // 
+    public static Action OnInventoryChanged;
+    public static Action OnItemAdded;
+    public static Action OnItemRemoved;
 
+    [Header("Inventory")]
+    [SerializeField]
+    int numberOfSlots = 20;
+
+    [SerializeField]
+    int maxSpaceOfSlots = 10;
+
+    [SerializeField]
     List<Slot> inventory = new List<Slot>();
 
-    public List<Slot> getInventory { get => inventory;}
-    public void createEmptyInventory(int numberOfSlots, int maxSpaceOfSlots = 10) 
+    public void AddSlots(int _numberOfSlots)
     {
-        // Initializes the inventory with a specific number of slots and slotsize.
-        // !!!Has to be called bevore adding any items!!!
-        // Example createEmptyInventory(5, 10) : 5 Slots with space for 10 items each
-        inventory = new List<Slot>();
-        for (int i = 0; i < numberOfSlots; i++)
+        for (int i = 0; i < _numberOfSlots; i++)
         {
-            inventory.Add(new Slot(maxSpaceOfSlots));
+            inventory.Add(new Slot());
         }
-        if (onItemChangedCallback != null)
-            onItemChangedCallback.Invoke();
+        OnInventoryChanged?.Invoke();
     }
-    public void addInventorySlots(int numberOfSlots, int maxSpaceOfSlots = 10)
+    Slot GetEmptySlot()
     {
-        // Adds a specific number of slots and slotsize to the inventory.
-        // Example addInventorySlots(5, 10) : Adds 5 Slots with space for 10 items each
-        for (int i = 0; i < numberOfSlots; i++)
+        foreach (Slot slot in inventory)
         {
-            inventory.Add(new Slot(maxSpaceOfSlots));
+            if (slot.GetItem() == null)
+                return slot;
         }
-        if (onItemChangedCallback != null)
-            onItemChangedCallback.Invoke();
+        return null;
     }
-    public int addItemAt(int index, Item itemType,int count) 
+    Slot GetSlotByItem(Item item)
     {
-        // Adds a number (count = 7) of items of type itemType (itemType = Stone) to an item slot(index = 3).
-        //Returns the number of items that could not be added because of unsufficent space in the specefied slot
-        //or Return -1 if the index is out of bound or the item slot is already filled with a different itemType.
-        //
-        // Example inventory.addItemAt(3,Stone,7);
-
-        if (indexIsInRange(index) && (inventory[index].ItemType == null || inventory[index].ItemType.id == itemType.id))
+        foreach (Slot slot in inventory)
         {
-            if (inventory[index].ItemType == null) 
+            if (slot.GetItem() != null)
             {
-                inventory[index].ItemType = Instantiate(itemType); // Set the itemType if the slot was empty.
+                if (slot.GetItem().id == item.id)
+                    return slot;
             }
 
-            if (inventory[index].MaxItems == inventory[index].Count) 
-            {
-
-                if (onItemChangedCallback != null)
-                    onItemChangedCallback.Invoke();
-                return count; // Can't add any items if the slot is full.
-            }
-            else if (inventory[index].MaxItems >= inventory[index].Count + count)
-            {
-                inventory[index].addItem(count); // Adds all items if there is enought space.
-                if(onItemChangedCallback != null)
-                    onItemChangedCallback.Invoke();
-                return 0;
-            } else 
-            {
-                int rest = count - inventory[index].MaxItems - inventory[index].Count;
-                inventory[index].addItem(inventory[index].MaxItems - inventory[index].Count); // Adds the number of items until the slot is full and returns the number of items that didn't fit.
-                if (onItemChangedCallback != null)
-                    onItemChangedCallback.Invoke();
-                return rest;
-            }
         }
-        else 
-        {
-            
-            return -1;//Wrong item or index not in range.
-        }
+        return null;
     }
-    public int removeItemAt(int index, int count)
+    int GetRest(int count, Slot slot)
     {
-        // Removes a number of items (count = 5)  from a specific slot (index = 4).
-        // Example inventory.removeItemAt(4,5)
-        if (indexIsInRange(index))
+        if (CountFitsInSlot(count, slot))
         {
-            if (inventory[index].ItemType == null)
-            {
-                return count;// Can't remove any items if the slot is empty.
-            }
-            else if (inventory[index].Count > count)
-            {
-                inventory[index].removeItem(count);// Removes the number of items if there are more or equal items in the slot.
-                return 0;
-            }
-            else if (inventory[index].Count <= count)
-            {
-                int rest = count - inventory[index].Count;
-                inventory[index].Count = 0; // Removes all the items from the slot  and returns the number of items that could not be removed.
-                inventory[index].ItemType = null; // When the slot is empty the itemType can also be removed.
-                return rest;
-            }
-            else 
-            {
-                return -1; // Something went wrong (you should never end up in here).
-            }
-            
+            return 0;
         }
         else
         {
-            return -1;//Index not in range.
+            return (count - (maxSpaceOfSlots - slot.GetCount()));
         }
     }
-    private bool indexIsInRange(int index)
+    bool CountFitsInSlot(int count, Slot slot)
+    {
+        int leftSize = maxSpaceOfSlots - slot.GetCount();
+        if (leftSize > count) // left size > count
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    bool indexIsInRange(int index)
     {
         // Returns true if a given index is in the bounds of the inventory.
         // Example (maxSize = 10) index = -10 : false , index =  100: false, index = 7 : true 
@@ -140,6 +103,128 @@ public class Inventory : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+
+
+    public int Remove(Item itemType, int count, int invIndex = -1)
+    {
+        Slot slot = null;
+
+        Item item = Instantiate(itemType);
+        if (item == null)
+            return -1;
+
+        // Get Slot
+        if (invIndex > -1)
+        {
+            if (indexIsInRange(invIndex))
+                slot = inventory[invIndex];
+        }
+        else
+        {
+            slot = GetSlotByItem(item);
+        }
+
+        if (slot == null)
+            return -1;
+
+        // remove
+        if (slot.GetItem() != null && slot.GetItem().id == item.id) // Wenn im Slot schon das gleiche item ist
+        {
+            int rest = 0;
+
+            if (slot.GetCount() >= count)
+            {
+                slot.RemoveCount(count);
+            }
+            else
+            {
+                rest = count - slot.GetCount();
+                slot.Clear();
+            }
+            OnInventoryChanged?.Invoke();
+            OnItemRemoved?.Invoke();
+            return rest;
+        }
+        else
+            return -1;
+    }
+
+    public int Add(Item itemType, int count, int invIndex = -1)
+    {
+        int rest = 0;
+        Slot slot = null;
+        
+        Item item = Instantiate(itemType);
+        if (item == null)
+            return -1;
+
+        // Get Slot
+        if (invIndex > -1)
+        {
+            if(indexIsInRange(invIndex))
+                slot = inventory[invIndex];
+        }
+        else
+        {
+            slot = GetSlotByItem(item);
+            if (slot == null)
+                slot = GetEmptySlot();
+        }
+
+        if (slot == null)
+            return -1;
+
+        // add
+        if (slot.GetItem() != null && slot.GetItem().id == item.id) // Wenn im Slot schon das selbe item ist
+        {
+            if (CountFitsInSlot(count, slot))
+            {
+                slot.AddCount(count);
+            }
+            else
+            {
+                rest = GetRest(count, slot);
+                slot.Set(item, maxSpaceOfSlots);
+            }
+        }
+        else if (slot.GetItem() == null)
+        {
+            if (CountFitsInSlot(count, slot))
+            {
+                slot.Set(item, count);
+            }
+            else
+            {
+                rest = GetRest(count, slot);
+                slot.Set(item, maxSpaceOfSlots);
+            }
+        }
+        else
+            return -1;
+
+        OnInventoryChanged?.Invoke();
+        OnItemAdded?.Invoke();
+        return rest;
+    }
+
+
+    void Start()
+    {
+        AddSlots(numberOfSlots);        
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Debug.Log(Add(testItemType, 8, 4));
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Debug.Log(Remove(testItemType, 8, 4));
         }
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UI_Inventory : MonoBehaviour
 {
-    Inventory playerInventory;
+ /*   Inventory playerInventory;
     public Transform inventoryContainer;
     public Transform itemSlotTemplate;
     private RectTransform[] UIItemSlots;
@@ -132,5 +132,5 @@ public class UI_Inventory : MonoBehaviour
             UIItemSlots[index] = itemSlotRectTransform;
             index++;
         }
-    }
+    }*/
 }
