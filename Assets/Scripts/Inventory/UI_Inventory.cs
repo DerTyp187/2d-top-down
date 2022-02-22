@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class UI_Inventory : MonoBehaviour
 {
+    /*
     [SerializeField]
     Inventory inventory;
     public Transform inventoryContainer;
@@ -132,5 +133,5 @@ public class UI_Inventory : MonoBehaviour
             UIItemSlots[index] = itemSlotRectTransform;
             index++;
         }
-    }
+    }*/
 }

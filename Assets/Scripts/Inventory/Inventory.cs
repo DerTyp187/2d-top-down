@@ -1,48 +1,41 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// <c>Inventory</c> holds and managed a list of slots which can contain an item.
+/// </summary>
 public class Inventory : MonoBehaviour
 {
-    /// <summary>
-    /// -------------------------------------------------------------------------------///
-    /// 
-    /// Inventory holds a list of Slots where Items can be added.
-    ///
-    ///[IMPORTANT]
-    /// !!createEmptyInventory(int numberOfSlots, int maxSpaceOfSlots) : Has to be called after the Inventory has been initialized!!
-    ///
-    ///[Methods]
-    /// getInventory() : Gets the list of Slots.
-    /// addItemAt(int index, Item itemType,int count) : Adds a number (count) of items of type itemType (itemType) to an item slot(index).
-    /// removeItemAt(int index, int count) : Removes a number of items (count)  from a specific slot (index).
-    /// addInventorySlots(int numberOfSlots, int maxSpaceOfSlots = 10)
-    /// 
-    /// -------------------------------------------------------------------------------///
-    /// </summary>
-
-    public Item testItemType;
-
+    // Actions -> Used for Callback in other scripts
     public static Action OnPlayerInventoryChanged;
     public static Action OnPlayerItemAdded;
     public static Action OnPlayerItemRemoved;
 
+    // Serialized
     [Header("Inventory")]
+    [Tooltip("The number of slots a player has in the inventory.")]
     [SerializeField]
     int numberOfSlots = 20;
 
+    [Tooltip("Maximal count of items in ONE slot. How big is one stack.")]
     [SerializeField]
     int maxSpaceOfSlots = 10;
 
+    [Tooltip("Is this inventory owned by the player")]
     [SerializeField]
     bool isPlayerInventory = true;
 
+    [Tooltip("List of the slots ('The inventory').")]
     [SerializeField]
     List<Slot> inventory = new List<Slot>();
 
     public List<Slot> GetInventory() => inventory;
 
+    /// <summary>
+    /// Add slots to the inventory. You can extend the inventory space.
+    /// </summary>
+    /// <param name="_numberOfSlots">The count of slots which should be added to the inventory</param>
     public void AddSlots(int _numberOfSlots)
     {
         for (int i = 0; i < _numberOfSlots; i++)
@@ -52,6 +45,11 @@ public class Inventory : MonoBehaviour
         if(isPlayerInventory)
             OnPlayerInventoryChanged?.Invoke();
     }
+
+    /// <summary>
+    /// <c>GetEmptySlot</c> gives you the first empty slot in the inventory.
+    /// </summary>
+    /// <returns>An empty slot of the inventory</returns>
     Slot GetEmptySlot()
     {
         foreach (Slot slot in inventory)
@@ -61,6 +59,12 @@ public class Inventory : MonoBehaviour
         }
         return null;
     }
+
+    /// <summary>
+    /// <c>GetSlotByItem</c> lets you find a slot by the item it's containing.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns>Slot with the specified item.</returns>
     Slot GetSlotByItem(Item item)
     {
         foreach (Slot slot in inventory)
@@ -74,6 +78,12 @@ public class Inventory : MonoBehaviour
         }
         return null;
     }
+
+    /// <summary>
+    /// <c>GetRest</c> calculates the rest count of an item and a slot.
+    /// Example: Slot has a capacity of 20. Count of item is 22. Returns 2.
+    /// </summary>
+    /// <returns>The rest count of an item and a slot.</returns>
     int GetRest(int count, Slot slot)
     {
         if (CountFitsInSlot(count, slot))
@@ -85,10 +95,17 @@ public class Inventory : MonoBehaviour
             return (count - (maxSpaceOfSlots - slot.GetCount()));
         }
     }
+
+    /// <summary>
+    /// <c>CountFitsInSlot</c> calculates if the item count fits in the slot capacity
+    /// </summary>
+    /// <param name="count"></param>
+    /// <param name="slot"></param>
+    /// <returns>True: Count fits. False: Count does not fit.</returns>
     bool CountFitsInSlot(int count, Slot slot)
     {
         int leftSize = maxSpaceOfSlots - slot.GetCount();
-        if (leftSize > count) // left size > count
+        if (leftSize > count)
         {
             return true;
         }
@@ -97,7 +114,12 @@ public class Inventory : MonoBehaviour
             return false;
         }
     }
-    bool indexIsInRange(int index)
+    /// <summary>
+    /// <c>IndexIsInRange</c> looks if an index of the inventory list is in range.
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns>True: Is in range. False: Is not in range.</returns>
+    bool IndexIsInRange(int index)
     {
         // Returns true if a given index is in the bounds of the inventory.
         // Example (maxSize = 10) index = -10 : false , index =  100: false, index = 7 : true 
@@ -112,7 +134,13 @@ public class Inventory : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// <c>Remove</c> removes an item/s of the inventory list. It can be based in a specific index.
+    /// </summary>
+    /// <param name="itemType">which item should be removed</param>
+    /// <param name="count">Count of the item you want to remove</param>
+    /// <param name="invIndex">(optional) Index of the inventory list</param>
+    /// <returns>The rest of the count, which could not be removed.</returns>
     public int Remove(Item itemType, int count, int invIndex = -1)
     {
         Slot slot = null;
@@ -124,7 +152,7 @@ public class Inventory : MonoBehaviour
         // Get Slot
         if (invIndex > -1)
         {
-            if (indexIsInRange(invIndex))
+            if (IndexIsInRange(invIndex))
                 slot = inventory[invIndex];
         }
         else
@@ -162,6 +190,13 @@ public class Inventory : MonoBehaviour
             return -1;
     }
 
+    /// <summary>
+    /// <c>Add</c> adds an item/s of the inventory list. It can be based in a specific index.
+    /// </summary>
+    /// <param name="itemType">which item should be added</param>
+    /// <param name="count">Count of the item you want to add</param>
+    /// <param name="invIndex">(optional) Index of the inventory list</param>
+    /// <returns>The rest of the count, which could not be added.</returns>
     public int Add(Item itemType, int count, int invIndex = -1)
     {
         int rest = 0;
@@ -174,7 +209,7 @@ public class Inventory : MonoBehaviour
         // Get Slot
         if (invIndex > -1)
         {
-            if(indexIsInRange(invIndex))
+            if(IndexIsInRange(invIndex))
                 slot = inventory[invIndex];
         }
         else
@@ -227,19 +262,7 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
+        // Initialize Inventory Slots
         AddSlots(numberOfSlots);        
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Debug.Log(Add(testItemType, 8, 4));
-        }
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            Debug.Log(Remove(testItemType, 8, 4));
-        }
     }
 }
