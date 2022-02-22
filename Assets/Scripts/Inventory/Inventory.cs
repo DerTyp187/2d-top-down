@@ -24,9 +24,9 @@ public class Inventory : MonoBehaviour
 
     public Item testItemType;
 
-    public static Action OnInventoryChanged;
-    public static Action OnItemAdded;
-    public static Action OnItemRemoved;
+    public static Action OnPlayerInventoryChanged;
+    public static Action OnPlayerItemAdded;
+    public static Action OnPlayerItemRemoved;
 
     [Header("Inventory")]
     [SerializeField]
@@ -36,7 +36,12 @@ public class Inventory : MonoBehaviour
     int maxSpaceOfSlots = 10;
 
     [SerializeField]
+    bool isPlayerInventory = true;
+
+    [SerializeField]
     List<Slot> inventory = new List<Slot>();
+
+    public List<Slot> GetInventory() => inventory;
 
     public void AddSlots(int _numberOfSlots)
     {
@@ -44,7 +49,8 @@ public class Inventory : MonoBehaviour
         {
             inventory.Add(new Slot());
         }
-        OnInventoryChanged?.Invoke();
+        if(isPlayerInventory)
+            OnPlayerInventoryChanged?.Invoke();
     }
     Slot GetEmptySlot()
     {
@@ -143,8 +149,13 @@ public class Inventory : MonoBehaviour
                 rest = count - slot.GetCount();
                 slot.Clear();
             }
-            OnInventoryChanged?.Invoke();
-            OnItemRemoved?.Invoke();
+
+            if (isPlayerInventory)
+            {
+                OnPlayerInventoryChanged?.Invoke();
+                OnPlayerItemRemoved?.Invoke();
+            }
+            
             return rest;
         }
         else
@@ -204,8 +215,12 @@ public class Inventory : MonoBehaviour
         else
             return -1;
 
-        OnInventoryChanged?.Invoke();
-        OnItemAdded?.Invoke();
+        if (isPlayerInventory)
+        {
+            OnPlayerInventoryChanged?.Invoke();
+            OnPlayerItemAdded?.Invoke();
+        }
+       
         return rest;
     }
 

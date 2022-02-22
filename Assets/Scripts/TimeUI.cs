@@ -12,10 +12,11 @@ public class TimeUI : MonoBehaviour
     private void Start()
     {
         timeManager = GameObject.Find("GameManager").GetComponent<TimeManager>();
+        TimeManager.OnTimeInterval += OnInterval;
         
     }
 
-    private void Update()
+    void OnInterval()
     {
         DateTime dateTime = timeManager.GetDateTime();
         if (dateTimeText != null)

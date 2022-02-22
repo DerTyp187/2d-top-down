@@ -6,14 +6,15 @@ using UnityEngine.UI;
 
 public class UI_Inventory : MonoBehaviour
 {
- /*   Inventory playerInventory;
+    [SerializeField]
+    Inventory inventory;
     public Transform inventoryContainer;
     public Transform itemSlotTemplate;
     private RectTransform[] UIItemSlots;
     private Button[] buttons;
     private Slot pickedItem = new Slot();
     private RectTransform pickedItemSlot;
-    private void Awake()
+    private void Start()
     {
         //itemSlotTemplate = inventoryContainer.Find("containerTemplate");
         pickedItemSlot = Instantiate(itemSlotTemplate, this.transform).GetComponent<RectTransform>();
@@ -21,8 +22,8 @@ public class UI_Inventory : MonoBehaviour
 
     void pickItem(int index) 
     {
-        pickedItem = playerInventory.getInventory[index].copy();
-        playerInventory.getInventory[index].clear();
+        pickedItem = inventory.GetInventory()[index].Copy();
+        inventory.GetInventory()[index].Clear();
         UIItemSlots[index].GetChild(0).Find("Icon").gameObject.SetActive(false);
     }
     void placeItem() 
@@ -31,18 +32,18 @@ public class UI_Inventory : MonoBehaviour
     }
     public void buttonEvent(int index) 
     {
-        if (pickedItem.ItemType == null && playerInventory.getInventory[index].ItemType != null)
+        if (pickedItem.GetItem() == null && inventory.GetInventory()[index].GetItem() != null)
         {
             pickItem(index);
         }
         else
         {
-            if (pickedItem.ItemType != null) 
+            if (pickedItem.GetItem() != null) 
             {
-                int rest = playerInventory.addItemAt(index, pickedItem.ItemType, pickedItem.Count);
+                int rest = inventory.Add(pickedItem.GetItem(), pickedItem.GetCount(), index);
                 if (rest == 0)
                 {
-                    pickedItem.clear();
+                    pickedItem.Clear();
                 }
                 else
                 {
@@ -57,7 +58,6 @@ public class UI_Inventory : MonoBehaviour
     }
     public void setInventory(Inventory inventory) 
     {
-        playerInventory = inventory;
         inventory.onItemChangedCallback += updateInventory;
         updateInventory();
     }
@@ -98,10 +98,10 @@ public class UI_Inventory : MonoBehaviour
             }
         }
         
-        UIItemSlots = new RectTransform[playerInventory.getInventory.Count];
-        buttons = new Button[playerInventory.getInventory.Count];
+        UIItemSlots = new RectTransform[inventory.Count];
+        buttons = new Button[inventory.Count];
         //inventoryContainer.GetComponent<RectTransform>().
-        foreach (Slot slot in playerInventory.getInventory) 
+        foreach (Slot slot in inventory) 
         {
             RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, inventoryContainer).GetComponent<RectTransform>();
             buttons[index] = itemSlotRectTransform.Find("Button").GetComponent<Button>();
@@ -111,16 +111,16 @@ public class UI_Inventory : MonoBehaviour
             itemSlotRectTransform.gameObject.SetActive(true);
             itemSlotRectTransform.gameObject.name = "ItemSlot" + index;
 
-            if (slot.ItemType != null) 
+            if (slot.GetItem() != null) 
             {
                 Transform item = itemSlotRectTransform.GetChild(0).Find("Icon");
                 Transform itemCount = itemSlotRectTransform.GetChild(0).Find("Count");
                 item.gameObject.SetActive(true);
-                item.GetComponent<Image>().sprite = slot.ItemType.sprite;
-                if (slot.Count > 1) 
+                item.GetComponent<Image>().sprite = slot.GetItem().sprite;
+                if (slot.GetCount() > 1) 
                 {
                     itemCount.gameObject.SetActive(true);
-                    itemCount.GetComponent<TextMeshProUGUI>().text = slot.Count.ToString();
+                    itemCount.GetComponent<TextMeshProUGUI>().text = slot.GetCount().ToString();
                 }
             }
             x++;
@@ -132,5 +132,5 @@ public class UI_Inventory : MonoBehaviour
             UIItemSlots[index] = itemSlotRectTransform;
             index++;
         }
-    }*/
+    }
 }

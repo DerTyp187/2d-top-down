@@ -13,6 +13,7 @@ public class Slot
     int count = 0;
 
     public Item GetItem() => item;
+    public void SetItem(Item _item) => item = _item;
 
     public int GetCount() => count;
    
@@ -38,7 +39,14 @@ public class Slot
         item = null;
         count = 0;
     }
+    public Slot Copy()
+    {
+        Slot slot = new Slot();
+        slot.SetCount(count);
+        slot.SetItem(item);
 
+        return slot;
+    }
     public void Set(Item _item, int _count = 1)
     {
         item = _item;
