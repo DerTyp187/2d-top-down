@@ -30,6 +30,8 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     List<Slot> inventory = new List<Slot>();
 
+    public static Inventory PlayerInstance { get; private set; } // instance of PlayerInventory
+
     public List<Slot> GetInventory() => inventory;
 
     /// <summary>
@@ -119,7 +121,7 @@ public class Inventory : MonoBehaviour
     /// </summary>
     /// <param name="index"></param>
     /// <returns>True: Is in range. False: Is not in range.</returns>
-    bool IndexIsInRange(int index)
+    public bool IndexIsInRange(int index)
     {
         // Returns true if a given index is in the bounds of the inventory.
         // Example (maxSize = 10) index = -10 : false , index =  100: false, index = 7 : true 
@@ -260,9 +262,12 @@ public class Inventory : MonoBehaviour
     }
 
 
-    void Start()
+    void Awake()
     {
         // Initialize Inventory Slots
-        AddSlots(numberOfSlots);        
+        AddSlots(numberOfSlots);
+
+        if (isPlayerInventory)
+            PlayerInstance = this;
     }
 }

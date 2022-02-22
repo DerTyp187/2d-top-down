@@ -1,7 +1,11 @@
+
 using UnityEngine;
 
 public class TreeInteraction : Harvestable
 {
+    [SerializeField]
+    Item dropItem;
+
     
     public override string GetDescription()
     {
@@ -12,6 +16,12 @@ public class TreeInteraction : Harvestable
     }
     public override void Interact()
     {
-        Debug.Log("Harvest BAUM");
+        if (!isHarvested)
+        {
+            Debug.Log("Harvest BAUM");
+            Inventory.PlayerInstance.Add(dropItem, Random.Range(1, 10));
+            isHarvested = true;
+        }
+        
     }
 }

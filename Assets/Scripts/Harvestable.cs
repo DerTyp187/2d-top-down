@@ -13,6 +13,9 @@ public abstract class Harvestable : Interactable
     
     float harvestTime = 0f;// time for how long the player already "harvested" the object
 
+    public ToolType toolType = ToolType.AXE;
+    public bool isHarvested = false;
+
     /// <summary>
     /// <c>IncreaseHarvestTime</c> increases the harvestTime by Time.deltaTime.
     /// <code>harvestTime += Time.deltaTime;</code>

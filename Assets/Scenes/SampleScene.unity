@@ -920,6 +920,7 @@ GameObject:
   - component: {fileID: 310196958}
   - component: {fileID: 310196957}
   - component: {fileID: 310196963}
+  - component: {fileID: 310196964}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1114,9 +1115,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee2fcb6d299019740bbede78bbc6a1d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testItemType: {fileID: 11400000, guid: e04039a6cbed5e5439b605aeee90485f, type: 2}
   numberOfSlots: 20
   maxSpaceOfSlots: 60
+  isPlayerInventory: 1
   inventory: []
 --- !u!95 &310196963
 Animator:
@@ -1138,6 +1139,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &310196964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310196950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cff3b5ce3863a7442a86b400700ff131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedSlotIndex: 0
 --- !u!1 &360525550
 GameObject:
   m_ObjectHideFlags: 0
@@ -6335,8 +6349,11 @@ MonoBehaviour:
   interactionType: 2
   holdDuration: 1
   radius: 3
-  centerPoint: {fileID: 0}
-  harvestDuration: 3
+  centerPoint: {fileID: 1335747188}
+  harvestDuration: 1
+  toolType: 0
+  isHarvested: 0
+  dropItem: {fileID: 11400000, guid: e6de4c0f524fecd418672a51c89d547e, type: 2}
 --- !u!1 &1357469793
 GameObject:
   m_ObjectHideFlags: 0

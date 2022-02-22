@@ -81,14 +81,17 @@ public class PlayerInteraction : MonoBehaviour
                 break;
             case Interactable.InteractionType.Harvest:
                 Harvestable harvestable = interactable.GetComponent<Harvestable>();
+                ToolItem toolItem = (ToolItem)InventoryController.PlayerInstance.GetSelectedSlot().GetItem();
+                bool isCorrectTool = (toolItem != null && toolItem.toolType == harvestable.toolType);
 
-                if (Input.GetButton("Interact") && interactable.isInRange())
+                if (Input.GetButton("Interact") && interactable.isInRange() && isCorrectTool)
                 {
                     harvestable.IncreaseHarvestTime();
 
                     if (harvestable.GetHarvestTime() >= harvestable.GetHarvestDuration())
                     {
                         harvestable.Interact();
+                        harvestable.ResetHarvestTime();
                     }
                 }
                 break;
