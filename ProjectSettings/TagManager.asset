@@ -47,3 +47,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Arms
+    uniqueID: 1981933757
+    locked: 0
+  - name: Envoirement
+    uniqueID: 4114961911
+    locked: 0

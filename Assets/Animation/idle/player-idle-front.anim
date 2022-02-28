@@ -20,9 +20,16 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 63784583, guid: 8013b5e4a9fd62a4e961f41fa9b2e04f, type: 3}
+      value: {fileID: 391566232, guid: 5ef811201fe6c354197ef0aa99ba35cc, type: 3}
     attribute: m_Sprite
-    path: 
+    path: Arms
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+    - time: 0
+      value: {fileID: 241008847, guid: 5ef811201fe6c354197ef0aa99ba35cc, type: 3}
+    attribute: m_Sprite
+    path: PlayerSprite
     classID: 212
     script: {fileID: 0}
   m_SampleRate: 60
@@ -33,14 +40,22 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 0
+      path: 1288071446
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+    - serializedVersion: 2
+      path: 533382794
       attribute: 0
       script: {fileID: 0}
       typeID: 212
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 63784583, guid: 8013b5e4a9fd62a4e961f41fa9b2e04f, type: 3}
+    - {fileID: 391566232, guid: 5ef811201fe6c354197ef0aa99ba35cc, type: 3}
+    - {fileID: 241008847, guid: 5ef811201fe6c354197ef0aa99ba35cc, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
